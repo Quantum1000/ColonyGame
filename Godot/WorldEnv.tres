@@ -1,0 +1,8 @@
+[gd_resource type="Environment" format=2]
+
+[resource]
+ambient_light_color = Color( 0.486275, 0.701961, 0.858824, 1 )
+ambient_light_energy = 0.12
+ssao_enabled = true
+ssao_quality = 2
+ssao_edge_sharpness = 5.41
