@@ -31,6 +31,7 @@ func generate():
 	noise.persistence = 0.8
 	var start = get_node("AreaStart").translation
 	var end = get_node("AreaEnd").translation
+	#TODO: decouple world size from tile size
 	height = int(abs(start.y-end.y))
 	width = int(abs(start.x-end.x))
 	length = int(abs(start.z-end.z))
@@ -47,13 +48,14 @@ func generate():
 					return
 				step+=1
 				var noiseHere = noise.get_noise_3d(abs(x-start.x),abs(y-start.y),abs(z-start.z))
-				if noiseHere-sigmoid((y-ground)/bumpiness) > 0:
-					setGridCell(x, y, z, 0, terrainGrid)
-					pass
+				setGridCell(x, y, z, noiseHere-sigmoid((y-ground)/bumpiness), terrainGrid)
 	for y in range(start.y,end.y):
 		for x in range(start.x, end.x):
 			for z in range(start.z, end.z):
 				if(getGridCell(x, y, z, terrainGrid) > 0):
+					#Then there is terrain in this 3d pixel
+					#In that case, check in each direction for whether or not there is terrain
+					#If there is no terrain in a direction 
 					pass
 
 func setGridCell(x, y, z, val, grid):
